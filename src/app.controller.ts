@@ -5,10 +5,8 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get('weather/:city')
-  // TODO: add country and state in url
-  getHello(@Param('city') city: string) {
-    // return this.appService.getHello();
-    return `The weather in ${city} is 72 degrees`;
+  @Get('weather/:country/:state/:city')
+  getWeatherForecast(@Param('country') country: string, @Param('state') state: string, @Param('city') city: string) {
+    return this.appService.getWeatherForecast(country, state, city);
   }
 }

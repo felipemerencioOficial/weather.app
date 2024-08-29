@@ -15,6 +15,11 @@ export class AppService {
     return format(startOfCurrentHour, "yyyy-MM-dd'T'HH:00:00");
   }
 
+  // Função para encontrar o índice da hora específica no array de tempo
+  findHourIndex(hourly: any, targetHour: string): number {
+    return hourly.time.indexOf(targetHour);
+  }
+
   // TODO: Faz funcionar a tratativa do data e horario para pegar a temperatura correta
   // TODO: Faz funcionar a requisição para api de clima 
   async getWeatherForecast(country: string, state: string, city: string): Promise<string> {
@@ -31,11 +36,17 @@ export class AppService {
       // Obtém a hora cheia atual
       const currentHour = this.getCurrentHour();
       console.log(`Current Hour: ${currentHour}`);
-      // console.log(`Time 2 ${response.time[currentHour]}`);
-      // console.log("BATATA");
-      // console.log(`Temperature: ${response.hourly.temperature_2m[9]}`);
 
-      return `The weather in ${country}, ${state} in the ${city} is ${response.temperature} degrees`;
+      // Encontra o índice da hora específica
+      const hourIndex = this.findHourIndex(response.hourly, '2024-08-29T10:00');
+      if (hourIndex !== -1) {
+        const temperature = response.hourly.temperature_2m[hourIndex];
+        console.log(`Temperature at 2024-08-29T10:00: ${temperature}°C`);
+      } else {
+        console.log('Hour not found in the response data.');
+      }
+
+      return `The weather in ${country}, ${state} in the ${city} is ${response.hourly.temperature_2m[9]} degrees`;
     } catch (error) {
       return `Error fetching weather data: ${error.message}`;
     }

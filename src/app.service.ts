@@ -12,7 +12,7 @@ export class AppService {
   getCurrentHour(): string {
     const now = new Date();
     const startOfCurrentHour = startOfHour(now);
-    return format(startOfCurrentHour, "yyyy-MM-dd'T'HH:00:00");
+    return format(startOfCurrentHour, "yyyy-MM-dd'T'HH:00");
   }
 
   // Função para encontrar o índice da hora específica no array de tempo
@@ -20,8 +20,7 @@ export class AppService {
     return hourly.time.indexOf(targetHour);
   }
 
-  // TODO: Faz funcionar a tratativa do data e horario para pegar a temperatura correta
-  // TODO: Faz funcionar a requisição para api de clima 
+  // TODO: Remover os parametros chubados e implementar a busca por cidade
   async getWeatherForecast(country: string, state: string, city: string): Promise<string> {
     // const apiUrl = `https://api.example.com/weather?country=${country}&state=${state}&city=${city}`;
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=-22.9056&longitude=-47.0608&hourly=temperature_2m&timezone=America%2FSao_Paulo`;
@@ -38,15 +37,14 @@ export class AppService {
       console.log(`Current Hour: ${currentHour}`);
 
       // Encontra o índice da hora específica
-      const hourIndex = this.findHourIndex(response.hourly, '2024-08-29T10:00');
+      const hourIndex = this.findHourIndex(response.hourly, currentHour.toString());
       if (hourIndex !== -1) {
         const temperature = response.hourly.temperature_2m[hourIndex];
         console.log(`Temperature at 2024-08-29T10:00: ${temperature}°C`);
+        return `Agora são ${temperature}°C em ${city}`;
       } else {
-        console.log('Hour not found in the response data.');
+        return 'Hour not found in the response data';
       }
-
-      return `The weather in ${country}, ${state} in the ${city} is ${response.hourly.temperature_2m[9]} degrees`;
     } catch (error) {
       return `Error fetching weather data: ${error.message}`;
     }

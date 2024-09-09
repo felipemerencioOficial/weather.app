@@ -46,8 +46,10 @@ export class AppService {
   }
 
   // TODO: Remover time zone fixo
-  // TODO: Remover campo de country
-  async getWeatherForecast(country: string, state: string, city: string): Promise<string> {
+  // TODO: Ajustar posição dos arquivos
+  // TODO: Adicionar tratamento de erro
+  // TODO: Ajustar para retornar a previsão do tempo para as próximas horas
+  async getWeatherForecast(state: string, city: string): Promise<string> {
     // const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=-22.9056&longitude=-47.0608&hourly=temperature_2m&timezone=America%2FSao_Paulo`;
     // Obtém as coordenadas da cidade e estado
     const { latitude, longitude } = await this.getCoordinates(city, state);

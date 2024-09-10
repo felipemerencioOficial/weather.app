@@ -5,7 +5,6 @@ import { lastValueFrom } from 'rxjs';
 const { format, startOfHour } = require('date-fns');
 import axios from 'axios';
 import * as dotenv from 'dotenv';
-// import tzLookup from 'tz-lookup';
 import tzlookup = require("tz-lookup");
 
 // Carrega as variáveis de ambiente do arquivo .env

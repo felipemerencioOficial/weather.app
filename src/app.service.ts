@@ -47,6 +47,7 @@ export class AppService {
   }
 
   // TODO: Ajustar posição dos arquivos
+  //            - Resolver os erro de falha na importação do module
   // TODO: Adicionar tratamento de erro
   // TODO: Ajustar para retornar a previsão do tempo para as próximas horas
   async getWeatherForecast(state: string, city: string): Promise<string> {

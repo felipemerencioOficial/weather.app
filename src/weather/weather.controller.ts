@@ -8,7 +8,7 @@ import { WeatherService } from './weather.service';
 export class WeatherController {
   constructor(private readonly weatherService: WeatherService) { }
 
-  @Get('weather/:state/:city')
+  @Get('/:state/:city')
   getWeatherForecast(@Param('state') state: string, @Param('city') city: string) {
     return this.weatherService.getWeatherForecast(state, city);
   }

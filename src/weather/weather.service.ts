@@ -65,8 +65,6 @@ export class WeatherService {
       throw new Error(`Error fetching coordinates: ${error.message}`);
     }
   }
-  // TODO: Ajustar para retornar a previsão do tempo para as próximas horas
-  // TODO: Adicionar tratamento de erro
   async getWeatherForecast(state: string, city: string): Promise<string> {
     const { latitude, longitude } = await this.getCoordinates(city, state);
     const timeZone = tzlookup(latitude, longitude);
